@@ -42,6 +42,7 @@ def protected():
 # Ruta para hacer una solicitud HTTP externa
 @app.route('/protected_book', methods=['GET'])
 @jwt_required()
+@limiter.limit("5 per minute")
 def protected_book():
     headers = {'Authorization': 'Bearer YLMHXNLg0rLVeMN_5exS'}
     response = requests.get('https://the-one-api.dev/v2/book', headers=headers, timeout=10)
@@ -50,6 +51,7 @@ def protected_book():
 
 @app.route('/protected_movie', methods=['GET'])
 @jwt_required()
+@limiter.limit("5 per minute")
 def protected_movie():
     headers = {'Authorization': 'Bearer YLMHXNLg0rLVeMN_5exS'}
     response = requests.get('https://the-one-api.dev/v2/book', headers=headers, timeout=10)
